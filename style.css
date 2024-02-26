@@ -1,46 +1,111 @@
-* {
+*{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
+
 .header {
-    width: 100vw;
-    height: 150px;
-    background-color: #2a9d8f;
-    display: flex;
+    background-color: #0a9396;
+    color: #fff;
     text-align: center;
     align-items: center;
-    justify-content: center;
+    padding: 60px;
 }
 
 .tittle {
-    color: white;
-    font-weight: bold;
-
+    font-size: 50px;
+    font-weight: 800;
 }
 
+
 .main {
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
-    background-color: #edf2f4;
+    background-color: #f2e9e4;
     height: 100vh;
-    
+    display: flex;
+    padding: 50px;
+
+    justify-content: center;
+}
+
+
+.taks-section {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin: 10px;
+    overflow: auto; 
+}
+
+.add-taks {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin: 10px;
+    height: 30%;
+
 }
 
 .form {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    align-items: center;
+}
 
+
+.input-search {
+    flex: 1;
+    margin-right: 10px;
+    padding: 10px;
+    width: 70%;
+}
+
+.input-add {
+    flex: 1;
+    margin-right: 10px;
+    padding: 10px;
+}
+
+
+.add-btn {
+    background-color: #0a9396;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.add-btn:hover {
+    background-color: #ccc;
+}
+
+.taks-section form {
+    margin-bottom: 20px;
+}
+
+.btn-search {
+    background-color: #0a9396;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-search:hover {
+    background-color: #ccc;
 }
 
 .taks-list {
-    list-style: none;
+    list-style-type: none;
 }
 
-section {
-    background-color: white;
-    padding: 100px;
+.taks-list li {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
 }
+

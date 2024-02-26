@@ -3,6 +3,7 @@
 const list = document.querySelector('.js-taks-list');
 const inputAdd = document.querySelector('.js-input-add');
 const buttonAdd = document.querySelector ('.js-add-btn');
+const message = document.querySelector('.js-message');
 
 
 let inputValue; 
@@ -21,7 +22,7 @@ const tasks = [
 
 function taksPrint(tasks) {
     for (const items of tasks){
-        list.innerHTML += `<li><input type="checkbox"> ${items.name} </li> `
+        list.innerHTML += `<li class= "items"><input type="checkbox"> ${items.name} </li> `
     }
 }
 
@@ -29,10 +30,14 @@ taksPrint (tasks);
 
 
 
-inputAdd.addEventListener('input', () => { 
-    inputValue = inputAdd.value;
-    buttonAdd.addEventListener('click', () => {
-        
-    })
+buttonAdd.addEventListener('click', (event) => {
+  event.preventDefault();
 
+  inputValue = inputAdd.value.trim(); // Eliminar espacios en blanco al principio y al final
+
+  if (inputValue !== '') { 
+    tasks.push({ name: inputValue }); // Añadir la nueva tarea al array de tareas
+    taksPrint([{ name: inputValue }]); // Llamar a la función taksPrint con la nueva tarea como argumento
+    inputAdd.value = ''; // Limpiar el input después de añadir la tarea
+  }
 });
