@@ -1,0 +1,46 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.header {
+    width: 100vw;
+    height: 150px;
+    background-color: #2a9d8f;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.tittle {
+    color: white;
+    font-weight: bold;
+
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    background-color: #edf2f4;
+    height: 100vh;
+    
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+}
+
+.taks-list {
+    list-style: none;
+}
+
+section {
+    background-color: white;
+    padding: 100px;
+}
