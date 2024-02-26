@@ -33,7 +33,7 @@ taksPrint (tasks);
 buttonAdd.addEventListener('click', (event) => {
   event.preventDefault();
 
-  inputValue = inputAdd.value.trim(); // Eliminar espacios en blanco al principio y al final
+  inputValue = inputAdd.value.trim(); 
 
   if (inputValue !== '') { 
     tasks.push({ name: inputValue }); // Añadir la nueva tarea al array de tareas
