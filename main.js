@@ -3,7 +3,9 @@
 const list = document.querySelector('.js-taks-list');
 const inputAdd = document.querySelector('.js-input-add');
 const buttonAdd = document.querySelector('.js-add-btn');
-const check = document.querySelectorAll('.js-checkInput');
+const lis = document.querySelectorAll('.listLi');
+
+let check = document.querySelectorAll("input[id=toggleSwitch]");
 
 let inputValue;
 
@@ -24,24 +26,41 @@ const tasks = [
 
 renderList();
 
+/*check.forEach(ch => {
+
+  ch.addEventListener("change", () => {
+
+
+    if (ch.checked == true) {
+      console.log("checkeao");
+
+    } else {
+      console.log("no checkeao");
+    }
+
+  })
+})*/
+
+
 
 function renderList() {
 
   for (const items of tasks) {
-    list.innerHTML += `<li><input type="checkbox"class = " js-checkInput"> ${items.name} </li> `
-  }
-  check.forEach(input => {
 
-    if (input[0].completed == true) {
+    if (items.completed === true) {
 
-      input[0].classList.add("done");
-
+      list.innerHTML += `<li class = "listLi done" ><input type="checkbox" id="toggleSwitch" checked> ${items.name} </li> `
     } else {
 
+      list.innerHTML += `<li class = "listLi" ><input type="checkbox" id="toggleSwitch" >${items.name} </li> `
     }
-  })
+  }
+
 
 }
+
+//si checked toggle de la clase done
+
 
 
 function taksPrint(event) {
@@ -58,8 +77,5 @@ inputAdd.addEventListener('input', () => {
   inputValue = inputAdd.value;
 });
 buttonAdd.addEventListener('click', taksPrint);
-
-
-console.log(tasks);
 
 
