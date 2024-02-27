@@ -8,6 +8,10 @@ const check = document.querySelectorAll('.js-checkInput');
 let inputValue;
 
 
+//for (const input of check) {
+
+//}
+
 const tasks = [
   { name: 'Recoger setas en el campo', completed: true },
   { name: 'Comprar pilas', completed: true },
@@ -18,30 +22,44 @@ const tasks = [
   },
 ];
 
+renderList();
 
 
-for (const items of tasks) {
-  list.innerHTML += `<li><input type="checkbox"class = "js-checkInput"> ${items.name} </li> `
-}
-
-function taksPrint(event) {
-  event.preventDefault();
-
-  list.innerHTML = ` `
-  tasks.push({ name: inputValue });
+function renderList() {
 
   for (const items of tasks) {
-    list.innerHTML += `<li><input type="checkbox"> ${items.name} </li> `
-
+    list.innerHTML += `<li><input type="checkbox"class = " js-checkInput"> ${items.name} </li> `
   }
+  check.forEach(input => {
 
+    if (input[0].completed == true) {
+
+      input[0].classList.add("done");
+
+    } else {
+
+    }
+  })
 
 }
+
+
+function taksPrint(event) {
+
+  event.preventDefault();
+
+  tasks.push({ name: inputValue });
+  list.innerHTML += `<li><input type="checkbox"> ${inputValue} </li> `
+  inputAdd.value = " ";
+
+}
+
 inputAdd.addEventListener('input', () => {
   inputValue = inputAdd.value;
 });
 buttonAdd.addEventListener('click', taksPrint);
 
 
+console.log(tasks);
 
 
