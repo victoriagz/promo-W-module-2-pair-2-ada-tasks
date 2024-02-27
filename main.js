@@ -1,18 +1,15 @@
 'use strict';
 
+
 const list = document.querySelector('.js-taks-list');
 const inputAdd = document.querySelector('.js-input-add');
 const buttonAdd = document.querySelector('.js-add-btn');
-const lis = document.querySelectorAll('.listLi');
 
-let check = document.querySelectorAll("input[id=toggleSwitch]");
+
 
 let inputValue;
 
 
-//for (const input of check) {
-
-//}
 
 const tasks = [
   { name: 'Recoger setas en el campo', completed: true },
@@ -26,41 +23,37 @@ const tasks = [
 
 renderList();
 
-/*check.forEach(ch => {
+const lis = document.querySelectorAll('.listLi');
+let check = document.querySelectorAll(".toggleSwitch");
 
-  ch.addEventListener("change", () => {
+console.log(check);
+for (const inp of check) {
 
+  inp.addEventListener("change", () => {
 
-    if (ch.checked == true) {
-      console.log("checkeao");
+    if (check[0].checked) {
+      tasks[0].completed === true;
+      lis[0].classList.add("done");
 
     } else {
-      console.log("no checkeao");
+      tasks[0].completed === false;
+      lis[0].classList.remove("done");
     }
 
   })
-})*/
-
-
+}
 
 function renderList() {
 
   for (const items of tasks) {
 
-    if (items.completed === true) {
+    list.innerHTML += `<li class = "listLi" ><input class ="toggleSwitch" type="checkbox" >${items.name} </li> `
 
-      list.innerHTML += `<li class = "listLi done" ><input type="checkbox" id="toggleSwitch" checked> ${items.name} </li> `
-    } else {
-
-      list.innerHTML += `<li class = "listLi" ><input type="checkbox" id="toggleSwitch" >${items.name} </li> `
-    }
   }
 
 
+
 }
-
-//si checked toggle de la clase done
-
 
 
 function taksPrint(event) {
@@ -68,7 +61,7 @@ function taksPrint(event) {
   event.preventDefault();
 
   tasks.push({ name: inputValue });
-  list.innerHTML += `<li><input type="checkbox"> ${inputValue} </li> `
+  list.innerHTML += `<li class= "listLi"><input type="checkbox" id = "toggleSwitch"> ${inputValue} </li> `
   inputAdd.value = " ";
 
 }
@@ -77,5 +70,4 @@ inputAdd.addEventListener('input', () => {
   inputValue = inputAdd.value;
 });
 buttonAdd.addEventListener('click', taksPrint);
-
 
