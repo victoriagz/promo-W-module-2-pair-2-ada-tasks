@@ -7,6 +7,7 @@ const check = document.querySelectorAll('.js-checkInput');
 
 let inputValue;
 
+
 const tasks = [
   { name: 'Recoger setas en el campo', completed: true },
   { name: 'Comprar pilas', completed: true },
@@ -16,6 +17,8 @@ const tasks = [
     completed: false,
   },
 ];
+
+
 
 for (const items of tasks) {
   list.innerHTML += `<li><input type="checkbox"class = "js-checkInput"> ${items.name} </li> `
@@ -29,13 +32,16 @@ function taksPrint(event) {
 
   for (const items of tasks) {
     list.innerHTML += `<li><input type="checkbox"> ${items.name} </li> `
+
   }
+
 
 }
 inputAdd.addEventListener('input', () => {
   inputValue = inputAdd.value;
 });
 buttonAdd.addEventListener('click', taksPrint);
+
 
 
 
