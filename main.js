@@ -3,10 +3,9 @@
 const list = document.querySelector('.js-taks-list');
 const inputAdd = document.querySelector('.js-input-add');
 const buttonAdd = document.querySelector('.js-add-btn');
-
+const check = document.querySelectorAll('.js-checkInput');
 
 let inputValue;
-
 
 const tasks = [
   { name: 'Recoger setas en el campo', completed: true },
@@ -18,32 +17,25 @@ const tasks = [
   },
 ];
 
-console.log(tasks);
-
 for (const items of tasks) {
-  list.innerHTML += `<li><input type="checkbox"> ${items.name} </li> `
+  list.innerHTML += `<li><input type="checkbox"class = "js-checkInput"> ${items.name} </li> `
 }
 
-function taksPrint(tasks) {
+function taksPrint(event) {
+  event.preventDefault();
 
-  inputAdd.addEventListener('input', () => {
-    inputValue = inputAdd.value;
-  });
-  buttonAdd.addEventListener('click', (event) => {
-    event.preventDefault();
-    list.innerHTML = ` `
-    tasks.push({ name: inputValue });
-    console.log(tasks);
+  list.innerHTML = ` `
+  tasks.push({ name: inputValue });
 
-    for (const items of tasks) {
-      list.innerHTML += `<li><input type="checkbox"> ${items.name} </li> `
-    }
-  })
+  for (const items of tasks) {
+    list.innerHTML += `<li><input type="checkbox"> ${items.name} </li> `
+  }
 
 }
-
-taksPrint(tasks);
-
+inputAdd.addEventListener('input', () => {
+  inputValue = inputAdd.value;
+});
+buttonAdd.addEventListener('click', taksPrint);
 
 
 
