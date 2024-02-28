@@ -5,11 +5,7 @@ const list = document.querySelector('.js-taks-list');
 const inputAdd = document.querySelector('.js-input-add');
 const buttonAdd = document.querySelector('.js-add-btn');
 
-
-
 let inputValue;
-
-
 
 const tasks = [
   { name: 'Recoger setas en el campo', completed: true },
@@ -23,24 +19,44 @@ const tasks = [
 
 renderList();
 
-const lis = document.querySelectorAll('.listLi');
-let check = document.querySelectorAll(".toggleSwitch");
+inputAdd.addEventListener('input', () => {
+  inputValue = inputAdd.value;
 
+});
+buttonAdd.addEventListener('click', taksPrint);
+
+
+const lis = document.querySelectorAll('.listLi');   //el que tiene va a cambiar 
+
+let check = document.querySelectorAll(".toggleSwitch");  //el que tiene addEventListener
+console.log(tasks);
 console.log(check);
-for (const inp of check) {
 
-  inp.addEventListener("change", () => {
+const handleCollapsable = (event) => {
 
-    if (check[0].checked) {
-      tasks[0].completed === true;
-      lis[0].classList.add("done");
+  const clickeditem = event.currentTarget;
+  const clickedParent = clickeditem.parentNode;
+
+  console.log(clickeditem);
+
+  console.log(clickedParent);
+
+  for (const li of lis) {
+
+    if (li === clickedParent) {
+
+      console.log("completa");
+      li.classList.toggle("done");
 
     } else {
-      tasks[0].completed === false;
-      lis[0].classList.remove("done");
+      console.log("no completa");
     }
 
-  })
+  }
+}
+
+for (const inp of check) {
+  inp.addEventListener("change", handleCollapsable);
 }
 
 function renderList() {
@@ -48,26 +64,20 @@ function renderList() {
   for (const items of tasks) {
 
     list.innerHTML += `<li class = "listLi" ><input class ="toggleSwitch" type="checkbox" >${items.name} </li> `
-
   }
-
-
-
 }
-
 
 function taksPrint(event) {
 
   event.preventDefault();
 
   tasks.push({ name: inputValue });
-  list.innerHTML += `<li class= "listLi"><input type="checkbox" id = "toggleSwitch"> ${inputValue} </li> `
+  list.innerHTML += `<li class= "listLi"><input class ="toggleSwitch" type="checkbox" > ${inputValue} </li> `
   inputAdd.value = " ";
+
+  console.log(tasks);
 
 }
 
-inputAdd.addEventListener('input', () => {
-  inputValue = inputAdd.value;
-});
-buttonAdd.addEventListener('click', taksPrint);
+
 
