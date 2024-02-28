@@ -54,7 +54,6 @@ const handleCollapsable = (event) => {
 
   }
 }
-
 for (const inp of check) {
   inp.addEventListener("change", handleCollapsable);
 }
@@ -84,19 +83,6 @@ function taksPrint(event) {
   const newCheckbox = newListItem.querySelector('.toggleSwitch');
   newCheckbox.addEventListener('change', handleCollapsable);
   inputAdd.value = " ";
-
-
-  //list.innerHTML += `<li class= "listLi"><input class ="toggleSwitch" type="checkbox" > ${inputValue} </li> `
-
-
-  // Actualiza los elementos. Me di cuenta que al añadir tareas no se actualizaban ni las lis ni los input
-  /* lis = document.querySelectorAll('.listLi');
-   check = document.querySelectorAll(".toggleSwitch");
-   check.forEach(element => {
-     element.addEventListener('change', handleCollapsable);
-   });*/
-
-  //Se cuaja lo anterior
   console.log(lis);
   console.log(check);
 }
