@@ -53,8 +53,13 @@ function handleClickCheckbox(event) {
     return items.name === inputiD;
   })
   console.log(taskindex);
+  if (event.target.checked) {
 
-  tasks[taskindex].completed = true;
+    tasks[taskindex].completed = true;
+  } else {
+    tasks[taskindex].completed = false;
+  }
+
   console.log(tasks);
 
   renderList(tasks);
