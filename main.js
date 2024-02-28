@@ -7,59 +7,49 @@ const check = document.querySelectorAll('.js-checkInput');
 
 let inputValue;
 
+let tasks = [];
 
-//for (const input of check) {
+const GITHUB_USER = 'victoriagz';
+const SERVER_URL = `https://dev.adalab.es/api/todo/${GITHUB_USER}`;
 
-//}
+fetch(SERVER_URL)
+.then((response) => response.json())
+.then((data) => {
+  tasks = data.results;
+   renderList();
+  console.log(data);
+})
 
-const tasks = [
-  { name: 'Recoger setas en el campo', completed: true },
-  { name: 'Comprar pilas', completed: true },
-  { name: 'Poner una lavadora de blancos', completed: true },
-  {
-    name: 'Aprender cómo se realizan las peticiones al servidor en JavaScript',
-    completed: false,
-  },
-];
 
-renderList();
+
+// renderList();
 
 
 function renderList() {
-
   for (const items of tasks) {
     list.innerHTML += `<li><input type="checkbox"class = " js-checkInput"> ${items.name} </li> `
   }
-  check.forEach(input => {
-
-    if (input[0].completed == true) {
-
-      input[0].classList.add("done");
-
-    } else {
-
-    }
-  })
-
 }
 
 
-function taksPrint(event) {
+// function taksPrint(event) {
 
-  event.preventDefault();
+//   event.preventDefault();
 
-  tasks.push({ name: inputValue });
-  list.innerHTML += `<li><input type="checkbox"> ${inputValue} </li> `
-  inputAdd.value = " ";
+//   tasks.push({ name: inputValue });
+//   list.innerHTML += `<li><input type="checkbox"> ${inputValue} </li> `
+//   inputAdd.value = " ";
 
-}
+// }
 
-inputAdd.addEventListener('input', () => {
-  inputValue = inputAdd.value;
-});
-buttonAdd.addEventListener('click', taksPrint);
+// inputAdd.addEventListener('input', () => {
+//   inputValue = inputAdd.value;
+// });
+// buttonAdd.addEventListener('click', taksPrint);
 
 
-console.log(tasks);
+
+
+
 
 
