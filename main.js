@@ -16,8 +16,11 @@ const SERVER_URL = `https://dev.adalab.es/api/todo/${GITHUB_USER}`;
 
 
 if (tasksLocalStorage !== null) {
+
+  //localStorage.removeItem("tasks");
   console.log("tengo tareas en localStorage");
-  console.log(renderList);
+  tasks = tasksLocalStorage;
+  console.log(tasksLocalStorage);
   renderList(tasksLocalStorage);
 
 } else {
@@ -27,33 +30,20 @@ if (tasksLocalStorage !== null) {
     .then((response) => response.json())
     .then((data) => {
       tasks = data.results;
-
       console.log(data);
+      renderList(tasks);
       localStorage.setItem('tasks', JSON.stringify(tasks));
-      renderList();
+
     })
     .catch((error) => {
       console.error(error);
     });
 }
 
-/*fetch(SERVER_URL)
-  .then((response) => response.json())
-  .then((data) => {
-    tasks = data.results;
-    renderList();
-    console.log(data);
-  })*/
-
-
-
-// renderList();
-
-
 
 function renderList(tasks) {
 
-  list.innerHTML = "";
+
   for (const items of tasks) {
 
     if (items.completed) {
@@ -66,14 +56,16 @@ function renderList(tasks) {
 }
 
 list.addEventListener("click", handleClickCheckbox);
-
-
+console.log(list)
 
 function handleClickCheckbox(event) {
+
+  console.log("ejecuta la funcion")
 
   if (!event.target.id) {
     return;
   }
+  list.innerHTML = "";
   const inputiD = event.target.id
   console.log(inputiD);
   const taskindex = tasks.findIndex((items) => {
@@ -88,9 +80,8 @@ function handleClickCheckbox(event) {
   }
 
   console.log(tasks);
-
   renderList(tasks);
-
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 function taksPrint(event) {
@@ -101,15 +92,13 @@ function taksPrint(event) {
     name: inputValue,
     completed: false,
   };
-
   tasks.push(newTask);
   console.log(newTask);
-
+  localStorage.setItem('tasks', JSON.stringify(tasks));
   list.innerHTML = ` `;
 
-
   renderList(tasks);
-  // list.innerHTML += `<li><input type="checkbox"> ${inputValue} </li> `
+
   inputAdd.value = " ";
 
 }
