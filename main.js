@@ -23,8 +23,8 @@ fetch(SERVER_URL)
   .then((response) => response.json())
   .then((data) => {
     tasks = data.results;
-    localStorage.setItem('tasks', JSON.stringify(tasks))
     renderList(tasks)
+    localStorage.setItem('tasks', JSON.stringify(tasks))
 
   })
 }
@@ -42,6 +42,8 @@ function renderList(tasks) {
 
 function taksPrint(event) {
   event.preventDefault();
+  inputValue = inputAdd.value;
+  list.innerHTML = ''
   const newTask = {
     name: inputValue,
     completed: false,
@@ -50,31 +52,16 @@ function taksPrint(event) {
   tasks.push(newTask);
   inputAdd.value = " ";
   localStorage.setItem('tasks', JSON.stringify(tasks))
+  renderList(tasks);
 
 }
-
-
-
-
-function handleClickCheckbox(event) {
-  const inputiD = event.target.id
-  const taskindex = tasks.findIndex((items) => {
-    return items.name === inputiD;
-  })
-  if (event.target.checked) {
-    tasks[taskindex].completed = true;
-  } else {
-    tasks[taskindex].completed = false;
-  }
-  localStorage.setItem('tasks', JSON.stringify(tasks))
-}
-
 
 
 
 
 buttonAdd.addEventListener('click', taksPrint);
-list.addEventListener("click", handleClickCheckbox);
+
+
 
 
 
