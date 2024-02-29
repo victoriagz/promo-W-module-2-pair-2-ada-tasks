@@ -17,7 +17,7 @@ const SERVER_URL = `https://dev.adalab.es/api/todo/${GITHUB_USER}`;
 
 if (tasksLocalStorage !== null) {
 
-  //localStorage.removeItem("tasks");
+  localStorage.removeItem("tasks");
   console.log("tengo tareas en localStorage");
   tasks = tasksLocalStorage;
   console.log(tasksLocalStorage);
@@ -92,14 +92,27 @@ function taksPrint(event) {
     name: inputValue,
     completed: false,
   };
-  tasks.push(newTask);
-  console.log(newTask);
-  localStorage.setItem('tasks', JSON.stringify(tasks));
-  list.innerHTML = ` `;
+  fetch(`https://dev.adalab.es/api/todo/${GITHUB_USER}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newTask),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success) {
+        tasks.push(newTask);
+        console.log(newTask);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        list.innerHTML = ` `;
 
-  renderList(tasks);
+        renderList(tasks);
 
-  inputAdd.value = " ";
+        inputAdd.value = " ";
+      } else {
+        console.log("error")
+      }
+    });
+
 
 }
 
