@@ -9,8 +9,13 @@ const SERVER_URL = `https://dev.adalab.es/api/todo/${GITHUB_USER}`;
 
 const tasksLocalStorage = JSON.parse(localStorage.getItem("tasks"));
 let inputValue;
-let tasks = [];
 
+
+if (tasksLocalStorage !== null) {
+  renderList(tasksLocalStorage)
+} else {
+  renderList()
+    }
 
 
 function getTasks(){ 
@@ -23,8 +28,7 @@ fetch(SERVER_URL)
   })
 }
 
-
-function renderList() {
+function renderList(tasks) {
   for (const items of tasks) {
     if (items.completed) {
       list.innerHTML += `<li class = "done" ><input type="checkbox"class = " js-checkInput" id ="${items.name}" checked <span>${items.name}</span> </li> `
@@ -35,9 +39,22 @@ function renderList() {
   }
 }
 
+function taksPrint(event) {
+  event.preventDefault();
+  const newTask = {
+    name: inputValue,
+    completed: false,
+  }
+
+  tasks.push(newTask);
+  inputAdd.value = " ";
+
+}
+
+
+
 
 function handleClickCheckbox(event) {
-  list.innerHTML = ` `;
   const inputiD = event.target.id
   const taskindex = tasks.findIndex((items) => {
     return items.name === inputiD;
@@ -47,28 +64,13 @@ function handleClickCheckbox(event) {
   } else {
     tasks[taskindex].completed = false;
   }
-
-
-
-  renderList(tasks);
-
 }
 
-function taksPrint(event) {
-  event.preventDefault();
-
-  tasks.push({ name: inputValue });
-  list.innerHTML += `<li><input type="checkbox"> ${inputValue} </li> `
-  inputAdd.value = " ";
-
-}
-
-inputAdd.addEventListener('input', () => {
-  inputValue = inputAdd.value;
-});
 
 
-
+// inputAdd.addEventListener('input', () => {
+//   inputValue = inputAdd.value;
+// });
 
 
 buttonAdd.addEventListener('click', taksPrint);
