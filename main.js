@@ -8,31 +8,53 @@ const check = document.querySelectorAll('.js-checkInput');
 let inputValue;
 
 let tasks = [];
+const tasksLocalStorage = JSON.parse(localStorage.getItem("tasks"));
+
 
 const GITHUB_USER = 'victoriagz';
 const SERVER_URL = `https://dev.adalab.es/api/todo/${GITHUB_USER}`;
 
-fetch(SERVER_URL)
+
+if (tasksLocalStorage !== null) {
+  console.log("tengo tareas en localStorage");
+  console.log(renderList);
+  renderList(tasksLocalStorage);
+
+} else {
+
+  console.log("no tengo nada en el localStorage");
+  fetch(SERVER_URL)
+    .then((response) => response.json())
+    .then((data) => {
+      tasks = data.results;
+
+      console.log(data);
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+      renderList();
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+/*fetch(SERVER_URL)
   .then((response) => response.json())
   .then((data) => {
     tasks = data.results;
     renderList();
     console.log(data);
-  })
+  })*/
 
 
 
 // renderList();
 
 
-function renderList() {
+
+function renderList(tasks) {
+
+  list.innerHTML = "";
   for (const items of tasks) {
-
-
-    /* const checked = tasks.completed ? "checked" : " ";
-     const classLi = tasks.completed ? "done" : " ";
- 
-     list.innerHTML = `<li class = ${classLi}><input type="checkbox"class = js-checkInput" ${checked} > <span>${items.name}</span> </li> `*/
 
     if (items.completed) {
       list.innerHTML += `<li class = "done" ><input type="checkbox"class = " js-checkInput" id ="${items.name}" checked <span>${items.name}</span> </li> `
@@ -45,8 +67,13 @@ function renderList() {
 
 list.addEventListener("click", handleClickCheckbox);
 
+
+
 function handleClickCheckbox(event) {
-  list.innerHTML = ` `;
+
+  if (!event.target.id) {
+    return;
+  }
   const inputiD = event.target.id
   console.log(inputiD);
   const taskindex = tasks.findIndex((items) => {
@@ -66,20 +93,31 @@ function handleClickCheckbox(event) {
 
 }
 
-// function taksPrint(event) {
+function taksPrint(event) {
 
-//   event.preventDefault();
+  event.preventDefault();
 
-//   tasks.push({ name: inputValue });
-//   list.innerHTML += `<li><input type="checkbox"> ${inputValue} </li> `
-//   inputAdd.value = " ";
+  const newTask = {
+    name: inputValue,
+    completed: false,
+  };
 
-// }
+  tasks.push(newTask);
+  console.log(newTask);
 
-// inputAdd.addEventListener('input', () => {
-//   inputValue = inputAdd.value;
-// });
-// buttonAdd.addEventListener('click', taksPrint);
+  list.innerHTML = ` `;
+
+
+  renderList(tasks);
+  // list.innerHTML += `<li><input type="checkbox"> ${inputValue} </li> `
+  inputAdd.value = " ";
+
+}
+
+inputAdd.addEventListener('input', () => {
+  inputValue = inputAdd.value;
+});
+buttonAdd.addEventListener('click', taksPrint);
 
 
 
