@@ -6,10 +6,10 @@ const buttonAdd = document.querySelector('.js-add-btn');
 const check = document.querySelectorAll('.js-checkInput');
 const GITHUB_USER = 'victoriagz';
 const SERVER_URL = `https://dev.adalab.es/api/todo/${GITHUB_USER}`;
-
 const tasksLocalStorage = JSON.parse(localStorage.getItem("tasks"));
 let inputValue;
 let tasks = [];
+
 
 if (tasksLocalStorage !== null) {
   renderList(tasksLocalStorage)
