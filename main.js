@@ -9,12 +9,12 @@ const SERVER_URL = `https://dev.adalab.es/api/todo/${GITHUB_USER}`;
 
 const tasksLocalStorage = JSON.parse(localStorage.getItem("tasks"));
 let inputValue;
-
+let tasks = [];
 
 if (tasksLocalStorage !== null) {
   renderList(tasksLocalStorage)
 } else {
-  renderList()
+  getTasks()
     }
 
 
@@ -22,8 +22,9 @@ function getTasks(){
 fetch(SERVER_URL)
   .then((response) => response.json())
   .then((data) => {
-    const tasks = data.results;
+    tasks = data.results;
     localStorage.setItem('tasks', JSON.stringify(tasks))
+    renderList(tasks)
 
   })
 }
@@ -48,6 +49,7 @@ function taksPrint(event) {
 
   tasks.push(newTask);
   inputAdd.value = " ";
+  localStorage.setItem('tasks', JSON.stringify(tasks))
 
 }
 
@@ -64,13 +66,11 @@ function handleClickCheckbox(event) {
   } else {
     tasks[taskindex].completed = false;
   }
+  localStorage.setItem('tasks', JSON.stringify(tasks))
 }
 
 
 
-// inputAdd.addEventListener('input', () => {
-//   inputValue = inputAdd.value;
-// });
 
 
 buttonAdd.addEventListener('click', taksPrint);
