@@ -4,58 +4,28 @@ const list = document.querySelector('.js-taks-list');
 const inputAdd = document.querySelector('.js-input-add');
 const buttonAdd = document.querySelector('.js-add-btn');
 const check = document.querySelectorAll('.js-checkInput');
-
-let inputValue;
-
-let tasks = [];
-const tasksLocalStorage = JSON.parse(localStorage.getItem("tasks"));
-
-
 const GITHUB_USER = 'victoriagz';
 const SERVER_URL = `https://dev.adalab.es/api/todo/${GITHUB_USER}`;
 
+const tasksLocalStorage = JSON.parse(localStorage.getItem("tasks"));
+let inputValue;
+let tasks = [];
 
-if (tasksLocalStorage !== null) {
-  console.log("tengo tareas en localStorage");
-  console.log(renderList);
-  renderList(tasksLocalStorage);
 
-} else {
 
-  console.log("no tengo nada en el localStorage");
-  fetch(SERVER_URL)
-    .then((response) => response.json())
-    .then((data) => {
-      tasks = data.results;
-
-      console.log(data);
-      localStorage.setItem('tasks', JSON.stringify(tasks));
-      renderList();
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
-
-/*fetch(SERVER_URL)
+function getTasks(){ 
+fetch(SERVER_URL)
   .then((response) => response.json())
   .then((data) => {
-    tasks = data.results;
-    renderList();
-    console.log(data);
-  })*/
+    const tasks = data.results;
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+
+  })
+}
 
 
-
-// renderList();
-
-
-
-function renderList(tasks) {
-
-  list.innerHTML = "";
+function renderList() {
   for (const items of tasks) {
-
     if (items.completed) {
       list.innerHTML += `<li class = "done" ><input type="checkbox"class = " js-checkInput" id ="${items.name}" checked <span>${items.name}</span> </li> `
     } else {
@@ -65,51 +35,30 @@ function renderList(tasks) {
   }
 }
 
-list.addEventListener("click", handleClickCheckbox);
-
-
 
 function handleClickCheckbox(event) {
-
-  if (!event.target.id) {
-    return;
-  }
+  list.innerHTML = ` `;
   const inputiD = event.target.id
-  console.log(inputiD);
   const taskindex = tasks.findIndex((items) => {
     return items.name === inputiD;
   })
-  console.log(taskindex);
   if (event.target.checked) {
-
     tasks[taskindex].completed = true;
   } else {
     tasks[taskindex].completed = false;
   }
 
-  console.log(tasks);
+
 
   renderList(tasks);
 
 }
 
 function taksPrint(event) {
-
   event.preventDefault();
 
-  const newTask = {
-    name: inputValue,
-    completed: false,
-  };
-
-  tasks.push(newTask);
-  console.log(newTask);
-
-  list.innerHTML = ` `;
-
-
-  renderList(tasks);
-  // list.innerHTML += `<li><input type="checkbox"> ${inputValue} </li> `
+  tasks.push({ name: inputValue });
+  list.innerHTML += `<li><input type="checkbox"> ${inputValue} </li> `
   inputAdd.value = " ";
 
 }
@@ -117,8 +66,13 @@ function taksPrint(event) {
 inputAdd.addEventListener('input', () => {
   inputValue = inputAdd.value;
 });
-buttonAdd.addEventListener('click', taksPrint);
 
+
+
+
+
+buttonAdd.addEventListener('click', taksPrint);
+list.addEventListener("click", handleClickCheckbox);
 
 
 
